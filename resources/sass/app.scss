@@ -1,0 +1,58 @@
+// Fonts
+@import url('https://fonts.bunny.net/css?family=Nunito');
+
+// Variables
+@import 'variables';
+
+// Bootstrap
+@import 'bootstrap/scss/bootstrap';
+
+.wrapper {
+    background: #FFFFFF;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.04);
+    border-radius: 20px;
+    max-width: 1080px;  
+    margin: 50px auto;
+}
+
+.cu-p{
+  cursor: pointer;
+}
+
+.info__title{
+  margin: 37px 0px;
+}
+
+.info__mail{
+  margin: 37px 0px;
+}
+
+.in-button{
+  height: 40px;
+  margin-right: 5px;
+}
+
+.reg-button{
+  height: 40px;
+}
+
+.out-button{
+  width: 90px;
+  height: 40px;
+}
+
+.form-select{
+    margin-left: 500px;
+    width: 140px;
+}
+
+.door-right{
+    transform: scale(-1, 1);
+    filter: hue-rotate(170deg);
+    background-color: #8fbd35;
+}
+
+.content-config {
+    width: 390px;
+}
+
