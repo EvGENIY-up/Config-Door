@@ -13,6 +13,8 @@ return new class extends Migration
     {
         Schema::create('decorations', function (Blueprint $table) {
             $table->id();
+            $table->string('name', 100);
+            $table->integer('price');
             $table->timestamps();
         });
     }
