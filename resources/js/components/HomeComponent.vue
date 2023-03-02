@@ -70,8 +70,17 @@
 <script>
 export default {
     name: "HomeComponent",
-      data() {
-          return {
+    props: [
+        'colors',
+        'tapes',
+        'handles',
+        'widths',
+        'heights',
+        'opens',
+        'decorations',
+    ],
+    data() {
+        return {
             first: false
         } 
     }
