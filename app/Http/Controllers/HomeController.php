@@ -11,6 +11,7 @@ use App\Models\Order;
 use App\Models\Tape;
 use App\Models\Width;
 use Illuminate\Http\Request;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class HomeController extends Controller
 {
@@ -58,15 +59,31 @@ class HomeController extends Controller
             'decoration_id' => 'required|integer|exists:decorations,id',
         ]);
         $data = [
-            'title' => $request->title,
-            'year' => $request->year,
-            'description' => $request->description,
-            'img' => $request->img,
-            'author_id' => $request->author_id,
-            'category_id' => $request->category_id,
+            'color_id' => $request->color_id,
+            'tape_id' => $request->tape_id,
+            'handle_id' => $request->handle_id,
+            'width_id' => $request->width_id,
+            'height_id' => $request->height_id,
+            'open_id' => $request->open_id,
+            'decoration_id' => $request->decoration_id,
         ];
 
         $newOrder = new Order($data);
         $newOrder->save();
+
+        $orderData = [
+            'Цвет покраски:' => $newOrder->color->name,
+            'Цвет плёнки:' => $newOrder->tape->name,
+            'Цвет ручки:' => $newOrder->handle->name,
+            'Ширина:' => $newOrder->width->name,
+            'Высота:' => $newOrder->height->name,
+            'Открывание:' => $newOrder->open->name,
+            'Аксесуар:' => $newOrder->decoration->name,
+            'Полная стоимость:' => $newOrder->color->price + $newOrder->tape->price + $newOrder->handle->price +
+                $newOrder->width->price + $newOrder->height->price + $newOrder->open->price + $newOrder->decoration->price,
+        ];
+
+        $pdf = Pdf::loadView('pdf', ['orderData' => $orderData]);
+        $pdf->save('myfile.pdf');
     }
 }

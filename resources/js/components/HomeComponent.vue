@@ -60,9 +60,11 @@
                                 </select>
                             </div>
                             <div v-if="chooseAllParams()" class="price-block mt-5 d-flex">
-                                <h3>Цена двери:</h3>
-                                <p class="fs-5 ms-2 mt-1">{{showPrice()}}р.</p>
-                            </div>                     
+                                <h3 class="mt-2">Цена двери:</h3>
+                                <p class="fs-5 ms-2 mt-2 price">{{showPrice()}}р.</p>
+                                <button @click="createOrder()" type="button" class="btn btn-warning ms-4"><div v-if="loading" class="spinner-border" role="status"></div><template v-else> Отправить заказ</template></button>
+                            </div>
+                             <p class="fs-5 d-flex justify-content-center mt-2" :class="{'text-danger': hasError, 'text-success': noError}">{{message}}</p>                     
                         </div>
                     </div>
                 </div>
@@ -93,7 +95,11 @@ export default {
             open_id: false,
             decoration_id: false,
             blockSearch: false,
-            price: ''
+            price: '',
+            message: '',
+            noError: true,
+            hasError: false,
+            loading: false
         } 
     },
     methods: {
@@ -109,7 +115,40 @@ export default {
             this.decorations[this.decoration_id - 1].price
 
             return this.price
-        }
+        },
+        createOrder() {
+            this.loading = true
+            this.message = ''
+            axios.post('/create', {
+                color_id: this.color_id,
+                tape_id: this.tape_id,
+                handle_id: this.handle_id,
+                width_id: this.width_id,
+                height_id: this.height_id,
+                open_id: this.open_id,
+                decoration_id: this.decoration_id,
+            }).then(res => {
+                if (res.status === 200) {
+                    this.noError = true
+                    this.hasError = false
+                    this.message = 'Вы успешно отправили заказ'
+                }
+            }).catch(error => {
+                if (error.response) {
+                    this.noError = false
+                    this.hasError = true
+                    this.message = error.response.data.message;
+                    console.log(error.response.data.message);
+                }
+                else {
+                    this.noError = false
+                    this.hasError = true
+                    this.message = 'Ошибка на стороне сервера';
+                }
+            }).finally(res => {
+                this.loading = false
+            })
+        },
     },
 }
 </script>
