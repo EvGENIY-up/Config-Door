@@ -58,6 +58,10 @@
                                 <select v-model="decoration_id" class="form-select ms-5" height="400px" >
                                     <option v-for=" decoration in decorations" :value = decoration.id>{{decoration.name}}</option>
                                 </select>
+                            </div>
+                            <div v-if="chooseAllParams()" class="price-block mt-5 d-flex">
+                                <h3>Цена двери:</h3>
+                                <p class="fs-5 ms-2 mt-1">{{showPrice()}}р.</p>
                             </div>                     
                         </div>
                     </div>
@@ -88,8 +92,25 @@ export default {
             height_id: false,
             open_id: false,
             decoration_id: false,
+            blockSearch: false,
+            price: ''
         } 
-    }
+    },
+    methods: {
+        chooseAllParams() {
+            if(this.color_id && this.tape_id && this.handle_id && this.width_id && this.height_id && this.open_id && this.decoration_id) {
+                return true
+            }
+        },
+        showPrice() {
+            this.price = this.colors[this.color_id - 1].price + this.tapes[this.tape_id - 1].price + 
+            this.handles[this.handle_id - 1].price + this.widths[this.width_id - 1].price + 
+            this.heights[this.height_id - 1].price + this.opens[this.open_id - 1].price + 
+            this.decorations[this.decoration_id - 1].price
+
+            return this.price
+        }
+    },
 }
 </script>
 
