@@ -19,44 +19,44 @@
                         <div class="config-content">
                             <div class="mb-2 d-flex justify-content-between">
                                 <label  class="form-label">Цвет покраски</label>
-                                <select class="form-select ms-5" height="400px" >
-                                    <option>Красный</option>
+                                <select v-model="color_id" class="form-select ms-5" height="400px" >
+                                    <option v-for=" color in colors" :value = color.id>{{color.name}}</option>
                                 </select>
                             </div>
                             <div class="mb-2 d-flex justify-content-between">
                                 <label  class="form-label">Цвет пленки</label>
-                                <select class="form-select ms-5" height="400px" >
-                                    <option>Красный</option>
+                                <select v-model="tape_id" class="form-select ms-5" height="400px" >
+                                    <option v-for=" tape in tapes" :value = tape.id>{{tape.name}}</option>
                                 </select>
                             </div>
                             <div class="mb-2 d-flex justify-content-between">
                                 <label  class="form-label">Цвет ручки</label>
-                                <select class="form-select ms-5" height="400px" >
-                                    <option>Красный</option>
+                                <select v-model="handle_id" class="form-select ms-5" height="400px" >
+                                    <option v-for=" handle in handles" :value = handle.id>{{handle.name}}</option>
                                 </select>
                             </div>
                             <div class="mb-2 d-flex justify-content-between">
                                 <label  class="form-label">Ширина</label>
-                                <select class="form-select ms-5" height="400px" >
-                                    <option>Красный</option>
+                                <select v-model="width_id" class="form-select ms-5" height="400px" >
+                                    <option v-for=" width in widths" :value = width.id>{{width.name}} мм</option>
                                 </select>
                             </div>
                             <div class="mb-2 d-flex justify-content-between">
                                 <label  class="form-label">Высота</label>
-                                <select class="form-select ms-5" height="400px" >
-                                    <option>Красный</option>
+                                <select v-model="height_id" class="form-select ms-5" height="400px" >
+                                    <option v-for=" height in heights" :value = height.id>{{height.name}} мм</option>
                                 </select>
                             </div>
                             <div class="mb-2 d-flex justify-content-between">
                                 <label  class="form-label">Открывание</label>
-                                <select class="form-select ms-5" height="400px" >
-                                    <option>Красный</option>
+                                <select v-model="open_id" class="form-select ms-5" height="400px" >
+                                    <option v-for=" open in opens" :value = open.id>{{open.name}}</option>
                                 </select>
                             </div>
                             <div class="mb-2 d-flex justify-content-between">
-                                <label  class="form-label">Выберите автора</label>
-                                <select class="form-select ms-5" height="400px" >
-                                    <option>Красный</option>
+                                <label  class="form-label">Выберите аксессуар(ы)</label>
+                                <select v-model="decoration_id" class="form-select ms-5" height="400px" >
+                                    <option v-for=" decoration in decorations" :value = decoration.id>{{decoration.name}}</option>
                                 </select>
                             </div>                     
                         </div>
@@ -81,7 +81,13 @@ export default {
     ],
     data() {
         return {
-            first: false
+            color_id: false,
+            tape_id: false,
+            handle_id: false,
+            width_id: false,
+            height_id: false,
+            open_id: false,
+            decoration_id: false,
         } 
     }
 }
