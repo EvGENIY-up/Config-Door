@@ -6,11 +6,15 @@
                 <div class="d-flex justify-content-between"> 
                     <div class="d-flex justify-content-around me-5">
                         <div>
-                            <img src="img/door.png" width="230" height="480" wi alt="Вид снаружи">
+                            <img src="img/door.png" class="door-left"
+                                :class="{'door-left-active': rightOpening, 'red': isRed, 'blue': isBlue, 'green': isGreen, 'yellow': isYellow}"
+                                width="230" height="480" alt="Вид снаружи">
                             <p class="text-center fs-5">Вид снаружи</p>
                         </div>
                         <div class="ms-3">
-                            <img src="img/door.png" class="door-right" width="230" height="480" alt="Вид изнутри">
+                            <img src="img/door.png" class="door-right"
+                                :class="{'door-right-active': rightOpening, 'red': isRed, 'blue': isBlue, 'green': isGreen, 'yellow': isYellow}"
+                                width="230" height="480" alt="Вид изнутри">
                             <p class="text-center fs-5">Вид изнутри</p>
                         </div>
                     </div>
@@ -19,7 +23,7 @@
                         <div class="config-content">
                             <div class="mb-2 d-flex justify-content-between">
                                 <label  class="form-label">Цвет покраски</label>
-                                <select v-model="color_id" class="form-select ms-5" height="400px" >
+                                <select @change="changeColorDoor" v-model="color_id" class="form-select ms-5" height="400px" >
                                     <option v-for=" color in colors" :value = color.id>{{color.name}}</option>
                                 </select>
                             </div>
@@ -49,7 +53,7 @@
                             </div>
                             <div class="mb-2 d-flex justify-content-between">
                                 <label  class="form-label">Открывание</label>
-                                <select v-model="open_id" class="form-select ms-5" height="400px" >
+                                <select @change="changeOpeningDoor" v-model="open_id" class="form-select ms-5" height="400px" >
                                     <option v-for=" open in opens" :value = open.id>{{open.name}}</option>
                                 </select>
                             </div>
@@ -99,7 +103,12 @@ export default {
             message: '',
             noError: true,
             hasError: false,
-            loading: false
+            loading: false,
+            rightOpening: true,
+            isRed: false,
+            isBlue: false,
+            isGreen: false,
+            isYellow: false,
         } 
     },
     methods: {
@@ -148,6 +157,39 @@ export default {
             }).finally(res => {
                 this.loading = false
             })
+        },
+        changeOpeningDoor(event) {
+            Number(event.target.value) == 2 ? this.rightOpening = false : this.rightOpening = true
+        },
+        changeColorDoor(event) {
+            switch (event.target.value) {
+                case '1':
+                    this.isRed = true;
+                    this.isBlue = false;
+                    this.isGreen = false;
+                    this.isYellow = false;
+                    break;
+                case '2':
+                    this.isRed = false;
+                    this.isBlue = true;
+                    this.isGreen = false;
+                    this.isYellow = false;
+                    break;
+                case '3':
+                    this.isRed = false;
+                    this.isBlue = false;
+                    this.isGreen = true;
+                    this.isYellow = false;
+                    break;
+                case '4':
+                    this.isRed = false;
+                    this.isBlue = false;
+                    this.isGreen = false;
+                    this.isYellow = true;
+                    break;
+                default:
+                    break;
+            }
         },
     },
 }

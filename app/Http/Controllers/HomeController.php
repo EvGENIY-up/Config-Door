@@ -16,7 +16,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 class HomeController extends Controller
 {
     /**
-     * Show the application dashboard.
+     * Показ страницы конфигурации с вложенными пропсами
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
@@ -42,7 +42,7 @@ class HomeController extends Controller
     }
 
     /**
-     * Добавление заказа в бд
+     * Создание заказа в бд / Создание pdf файла
      *
      * @param Request $request
      * @return response с резьлутатом выполнения
@@ -75,15 +75,40 @@ class HomeController extends Controller
             'Цвет покраски:' => $newOrder->color->name,
             'Цвет плёнки:' => $newOrder->tape->name,
             'Цвет ручки:' => $newOrder->handle->name,
-            'Ширина:' => $newOrder->width->name,
-            'Высота:' => $newOrder->height->name,
+            'Ширина:' => $newOrder->width->name . 'мм',
+            'Высота:' => $newOrder->height->name . 'мм',
             'Открывание:' => $newOrder->open->name,
             'Аксесуар:' => $newOrder->decoration->name,
             'Полная стоимость:' => $newOrder->color->price + $newOrder->tape->price + $newOrder->handle->price +
-                $newOrder->width->price + $newOrder->height->price + $newOrder->open->price + $newOrder->decoration->price,
+                $newOrder->width->price + $newOrder->height->price + $newOrder->open->price + $newOrder->decoration->price . 'р',
         ];
 
         $pdf = Pdf::loadView('pdf', ['orderData' => $orderData]);
         $pdf->save('myfile.pdf');
+        $this->sendPdf($pdf);
+    }
+
+    /**
+     * Отправка pdf файла в тг канал
+     *
+     * @param $file файл формата pdf
+     * @return response с резьлутатом выполнения
+     */
+    public function sendPdf($file)
+    {
+        $token = "";
+
+        $arrayQuery = array(
+            'chat_id' => -1,
+            'caption' => 'Отправка pdf',
+            'document' => curl_file_create('myfile.pdf', 'application/pdf', 'doorconf.pdf')
+        );
+        $ch = curl_init('https://api.telegram.org/bot' . $token . '/sendDocument');
+        curl_setopt($ch, CURLOPT_POST, 1);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $arrayQuery);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_HEADER, false);
+        $res = curl_exec($ch);
+        curl_close($ch);
     }
 }

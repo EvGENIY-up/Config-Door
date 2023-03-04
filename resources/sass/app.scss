@@ -47,9 +47,35 @@
 }
 
 .door-right{
-    transform: scale(-1, 1);
-    filter: hue-rotate(170deg);
-    background-color: #8fbd35;
+  transform: rotateY(180deg);
+  transition: transform 0.7s ease-in-out;
+}
+
+.door-right-active{
+  transform: rotateY(360deg);
+}
+
+.door-left{
+  transition: transform 0.7s ease-in-out;
+}
+
+.door-left-active{
+  transform: rotateY(180deg);
+}
+.red {
+  filter: hue-rotate(300deg);
+}
+
+.blue {
+  filter: hue-rotate(180deg);
+}
+
+.green {
+  filter: hue-rotate(120deg);
+}
+
+.yellow {
+  filter: hue-rotate(50deg);
 }
 
 .content-config {
