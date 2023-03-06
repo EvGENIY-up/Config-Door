@@ -1,10 +1,10 @@
 <template>
     <div class="content mx-3">
         <div class="d-flex justify-content-center">
-            <div class="content-door">
-                <h2>Конфигурация двери</h2>
-                <div class="d-flex justify-content-between"> 
-                    <div class="d-flex justify-content-around me-5">
+            <div>
+                <h2 class="title-content">Конфигурация двери</h2>
+                <div class="content-door"> 
+                    <div class="door-section d-flex justify-content-around me-5">
                         <div>
                             <img src="img/door.png" class="door-left"
                                 :class="{'door-left-active': rightOpening, 'red': isRed, 'blue': isBlue, 'green': isGreen, 'yellow': isYellow}"
@@ -21,54 +21,54 @@
                     <div class="content-config ms-5 ">
                         <h3 class="mb-3">Параметры:</h3>
                         <div class="config-content">
-                            <div class="mb-2 d-flex justify-content-between">
+                            <div class="mb-2 select-content">
                                 <label  class="form-label">Цвет покраски</label>
-                                <select @change="changeColorDoor" v-model="color_id" class="form-select ms-5" height="400px" >
+                                <select @change="changeColorDoor" v-model="color_id" class="form-select choice-conf" height="400px" >
                                     <option v-for=" color in colors" :value = color.id>{{color.name}}</option>
                                 </select>
                             </div>
-                            <div class="mb-2 d-flex justify-content-between">
+                            <div class="mb-2 select-content">
                                 <label  class="form-label">Цвет пленки</label>
-                                <select v-model="tape_id" class="form-select ms-5" height="400px" >
+                                <select v-model="tape_id" class="form-select choice-conf" height="400px" >
                                     <option v-for=" tape in tapes" :value = tape.id>{{tape.name}}</option>
                                 </select>
                             </div>
-                            <div class="mb-2 d-flex justify-content-between">
+                            <div class="mb-2 select-content">
                                 <label  class="form-label">Цвет ручки</label>
-                                <select v-model="handle_id" class="form-select ms-5" height="400px" >
+                                <select v-model="handle_id" class="form-select choice-conf" height="400px" >
                                     <option v-for=" handle in handles" :value = handle.id>{{handle.name}}</option>
                                 </select>
                             </div>
-                            <div class="mb-2 d-flex justify-content-between">
+                            <div class="mb-2 select-content">
                                 <label  class="form-label">Ширина</label>
-                                <select v-model="width_id" class="form-select ms-5" height="400px" >
+                                <select v-model="width_id" class="form-select choice-conf" height="400px" >
                                     <option v-for=" width in widths" :value = width.id>{{width.name}} мм</option>
                                 </select>
                             </div>
-                            <div class="mb-2 d-flex justify-content-between">
+                            <div class="mb-2 select-content">
                                 <label  class="form-label">Высота</label>
-                                <select v-model="height_id" class="form-select ms-5" height="400px" >
+                                <select v-model="height_id" class="form-select choice-conf" height="400px" >
                                     <option v-for=" height in heights" :value = height.id>{{height.name}} мм</option>
                                 </select>
                             </div>
-                            <div class="mb-2 d-flex justify-content-between">
+                            <div class="mb-2 select-content">
                                 <label  class="form-label">Открывание</label>
-                                <select @change="changeOpeningDoor" v-model="open_id" class="form-select ms-5" height="400px" >
+                                <select @change="changeOpeningDoor" v-model="open_id" class="form-select choice-conf" height="400px" >
                                     <option v-for=" open in opens" :value = open.id>{{open.name}}</option>
                                 </select>
                             </div>
-                            <div class="mb-2 d-flex justify-content-between">
+                            <div class="mb-2 select-content">
                                 <label  class="form-label">Выберите аксессуар(ы)</label>
-                                <select v-model="decoration_id" class="form-select ms-5" height="400px" >
+                                <select v-model="decoration_id" class="form-select choice-conf" height="400px" >
                                     <option v-for=" decoration in decorations" :value = decoration.id>{{decoration.name}}</option>
                                 </select>
                             </div>
                             <div v-if="chooseAllParams()" class="price-block mt-5 d-flex">
-                                <h3 class="mt-2">Цена двери:</h3>
-                                <p class="fs-5 ms-2 mt-2 price">{{showPrice()}}р.</p>
-                                <button @click="createOrder()" type="button" class="btn btn-warning ms-4"><div v-if="loading" class="spinner-border" role="status"></div><template v-else> Отправить заказ</template></button>
+                                <h3 class="mt-2 title-price">Цена двери:</h3>
+                                <p class="ms-2 mt-2 total-price">{{showPrice()}}р.</p>
+                                <button @click="createOrder()" type="button" class="btn btn-warning ms-4 create-btn"><div v-if="loading" class="spinner-border" role="status"></div><template v-else> Отправить заказ</template></button>
                             </div>
-                             <p class="fs-5 d-flex justify-content-center mt-2" :class="{'text-danger': hasError, 'text-success': noError}">{{message}}</p>                     
+                             <p class="fs-5 status d-flex justify-content-center mt-2" :class="{'text-danger': hasError, 'text-success': noError}">{{message}}</p>                     
                         </div>
                     </div>
                 </div>

@@ -96,10 +96,10 @@ class HomeController extends Controller
      */
     public function sendPdf($file)
     {
-        $token = "";
+        $token = 0;
 
         $arrayQuery = array(
-            'chat_id' => -1,
+            'chat_id' => 0,
             'caption' => 'Отправка pdf',
             'document' => curl_file_create('myfile.pdf', 'application/pdf', 'doorconf.pdf')
         );

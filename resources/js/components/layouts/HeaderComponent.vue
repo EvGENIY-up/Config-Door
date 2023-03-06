@@ -1,13 +1,13 @@
 <template>
-<div class="header d-flex justify-content-between m-4 border-bottom">
+<div class="header-content d-flex justify-content-between m-4 border-bottom">
     <div @click="goToLink" class="left-content d-flex cu-p">
-        <img src="img/door-icon.svg" alt="Иконка двери" class="left-content__img cu-p" width="50">
-        <div class="name-content ms-3 mt-3">
+        <img src="img/door-icon.svg" alt="Иконка двери" class="left-content__img cu-p">
+        <div class="name-content">
             <h2 class="site-title">Сonfig Doors</h2>
             <p class="site-decription">Лучший конфигуратор дверей</p>
         </div>
     </div> 
-    <div class="right-content d-flex mt-4">
+    <div class="right-content d-flex">
         <p v-if="user" class="login-name">{{user}}</p>
         <template v-else>
             <button type="button" class="btn btn-primary mt-2 in-button" data-bs-toggle="modal" data-bs-target="#login">Вход</button>
