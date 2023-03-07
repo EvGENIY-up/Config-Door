@@ -85,7 +85,7 @@ class HomeController extends Controller
 
         $pdf = Pdf::loadView('pdf', ['orderData' => $orderData]);
         $pdf->save('myfile.pdf');
-        $this->sendPdf($pdf);
+        $this->sendPdf();
     }
 
     /**
@@ -94,12 +94,12 @@ class HomeController extends Controller
      * @param $file файл формата pdf
      * @return response с резьлутатом выполнения
      */
-    public function sendPdf($file)
+    public function sendPdf()
     {
-        $token = 0;
+        $token = env('TG_TOKEN');
 
         $arrayQuery = array(
-            'chat_id' => 0,
+            'chat_id' => env('TG_ID'),
             'caption' => 'Отправка pdf',
             'document' => curl_file_create('myfile.pdf', 'application/pdf', 'doorconf.pdf')
         );

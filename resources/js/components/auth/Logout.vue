@@ -11,7 +11,7 @@
             </div>
             <div class="modal-footer">
                 <button ref="closeButton" type="button" class="btn btn-primary" data-bs-dismiss="modal">Нет</button>
-                <button @click="logOut()" type="submit" class="btn btn-danger">Да</button>
+                <button type="submit" class="btn btn-danger">Да</button>
             </div>
             </div>
         </div>

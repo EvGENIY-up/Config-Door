@@ -25,7 +25,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button @click.prevent="createUser" type="submit" class="btn btn-primary">Отправить</button>
+                    <button type="submit" class="btn btn-primary">Отправить</button>
                     <button ref="closeButton" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
                 </div>
             </form>
