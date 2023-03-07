@@ -91,6 +91,7 @@ class HomeController extends Controller
     /**
      * Отправка pdf файла в тг канал
      *
+     *
      * @return response с резьлутатом выполнения
      */
     public function sendPdf()
